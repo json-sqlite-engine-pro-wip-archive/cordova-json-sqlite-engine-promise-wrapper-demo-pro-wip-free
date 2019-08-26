@@ -13,7 +13,7 @@ XXX TBD XXX XXX
 - Bootstrap (3.3.7) - included (MIT license)
 - JQuery (3.3.1) - included (MIT license)
 - `cordova-plugin-dialogs` - now specified in `package.json`
-- JSON SQLite engine plugin - (...)
+- `cordova-json-sqlite-memory-engine-pro-wip-free` - installed from: <https://gitlab.showgit.com/brodysoft/cordova-json-sqlite-memory-engine-pro-wip-free>
 
 IMPORTANT NOTE: `cordova-plugin-dialogs` was added using the `--save` flag to ensure that this plugin would be tracked in `config.xml` for automatic installation. It is recommended to use the `--save` flag on Cordova pre-7.0 to track any other plugins added in `config.xml` (this is automatic starting with Cordova `7.0`). It is NOT recommended to commit `plugins` or `platforms` directories to git or any other form of source code control.
 
@@ -26,12 +26,6 @@ cordova plugin add my-plugin-id --save
 ```
 
 ## How to run
-
-* Add the desired JSON SQLite engine plugin version, for example:
-
-```shell
-cordova plugin add ../json-sqlite-memory-engine-wrapper-pro-wip-free
-```
 
 * Add the desired platform(s), for example:
 

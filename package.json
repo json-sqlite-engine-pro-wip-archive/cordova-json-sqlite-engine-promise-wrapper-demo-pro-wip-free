@@ -6,10 +6,12 @@
   "cordova": {
     "platforms": [],
     "plugins": {
-      "cordova-plugin-dialogs": {}
+      "cordova-plugin-dialogs": {},
+      "cordova-json-sqlite-memory-engine-pro-wip-free": {}
     }
   },
   "dependencies": {
+    "cordova-json-sqlite-memory-engine-pro-wip-free": "git+https://gitlab.showgit.com/brodysoft/cordova-json-sqlite-memory-engine-pro-wip-free",
     "cordova-plugin-dialogs": "^2.0.2"
   }
 }
