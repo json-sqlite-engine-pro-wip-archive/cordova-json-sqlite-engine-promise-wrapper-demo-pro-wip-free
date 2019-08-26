@@ -1,11 +1,15 @@
 {
   "name": "com.brodybits.testapp",
-  "version": "0.2.0",
-  "displayName": "cordova-sqlite-test-app",
+  "version": "0.0.1-dev",
+  "displayName": "cordova-json-sqlite-memory-engine-testapp-pro-wip-free",
+  "license": "GPL-3.0 OR COMMERCIAL",
   "cordova": {
-    "platforms": [
-    ]
+    "platforms": [],
+    "plugins": {
+      "cordova-plugin-dialogs": {}
+    }
   },
   "dependencies": {
+    "cordova-plugin-dialogs": "^2.0.2"
   }
 }
