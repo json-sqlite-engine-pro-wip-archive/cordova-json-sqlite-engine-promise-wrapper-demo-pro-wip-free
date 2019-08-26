@@ -1,4 +1,4 @@
-# Cordova json sqlite memory engine testapp PRO WIP free
+# Cordova JSON SQLite engine promise wrapper demo PRO WIP free
 
 XXX TBD XXX XXX
 
@@ -14,6 +14,7 @@ XXX TBD XXX XXX
 - JQuery (3.3.1) - included (MIT license)
 - `cordova-plugin-dialogs` - now specified in `package.json`
 - `cordova-json-sqlite-memory-engine-pro-wip-free` - installed from: <https://gitlab.showgit.com/brodysoft/cordova-json-sqlite-memory-engine-pro-wip-free>
+- `json-sqlite-engine-promise-wrapper-wip` - promise-based wrapper with a cleaner API from: <https://gitlab.showgit.com/brodysoft/json-sqlite-engine-promise-wrapper-wip>
 
 IMPORTANT NOTE: `cordova-plugin-dialogs` was added using the `--save` flag to ensure that this plugin would be tracked in `config.xml` for automatic installation. It is recommended to use the `--save` flag on Cordova pre-7.0 to track any other plugins added in `config.xml` (this is automatic starting with Cordova `7.0`). It is NOT recommended to commit `plugins` or `platforms` directories to git or any other form of source code control.
 

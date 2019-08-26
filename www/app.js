@@ -1,15 +1,15 @@
-var databaseHandle = null;
+var databaseConnection = null;
 
 var nextUser = 101;
 
 function initDatabase() {
   window.jsonSQLiteEngine.openDatabaseHandle([':memory:'], function(x) {
-    databaseHandle = x[0];
-    window.jsonSQLiteEngine.jsonExecuteStatement([
-      databaseHandle,
-      JSON.stringify(
-        [null, 'CREATE TABLE SampleTable (name, score)', 0, null])
-    ]);
+    var databaseHandle = x[0];
+    databaseConnection =
+      window.jsonSQLiteEnginePromiseWrapper.newDatabaseConnection(
+        window.jsonSQLiteEngine, databaseHandle);
+    databaseConnection.executeStatement(
+      'CREATE TABLE SampleTable (name, score)');
   });
 }
 
@@ -18,67 +18,60 @@ function reload() {
 }
 
 function stringTest1() {
-  window.jsonSQLiteEngine.jsonExecuteStatement([
-    databaseHandle,
-    JSON.stringify(
-      [null, "SELECT upper('Test string') AS upperText", 0, null])
-  ], function(res) {
-    var rs = JSON.parse(res);
-    showMessage('received upperText result value (ALL CAPS): ' + rs[0].rows[0].upperText);
-  }, function(error) {
-    showMessage('SELECT value error: ' + error.message);
-  });
+  databaseConnection.executeStatement(
+    "SELECT upper('Test string') AS upperText")
+    .then(function(rs) {
+      showMessage(
+        'received upperText result value (ALL CAPS): ' +
+         rs[0].rows[0].upperText);
+    })
+    .catch(function(error) {
+      showMessage('SELECT value error: ' + error.message);
+    });
 }
 
 function stringTest2() {
-  window.jsonSQLiteEngine.jsonExecuteStatement([
-    databaseHandle,
-    JSON.stringify(
-      [null, 'SELECT upper(?) AS upperText', 1, 'Test string', null])
-  ], function(res) {
-    var rs = JSON.parse(res);
-    showMessage('received upperText result value (ALL CAPS): ' + rs[0].rows[0].upperText);
-  }, function(error) {
-    showMessage('SELECT value error: ' + error.message);
-  });
+  databaseConnection.executeStatement(
+    'SELECT upper(?) AS upperText', ['Test string'])
+    .then(function(rs) {
+      showMessage('received upperText result value (ALL CAPS): ' + rs[0].rows[0].upperText);
+    })
+    .catch(function(error) {
+      showMessage('SELECT value error: ' + error.message);
+    });
 }
 
 function showCount() {
-  window.jsonSQLiteEngine.jsonExecuteStatement([
-    databaseHandle,
-    JSON.stringify(
-      [null, 'SELECT count(*) AS recordCount FROM SampleTable', 0, null])
-  ], function(res) {
-    var rs = JSON.parse(res);
-    showMessage('RECORD COUNT: ' + rs[0].rows[0].recordCount);
-  }, function(error) {
-    showMessage('SELECT count error: ' + error.message);
-  });
+  databaseConnection.executeStatement(
+    'SELECT count(*) AS recordCount FROM SampleTable')
+    .then(function(rs) {
+      showMessage('RECORD COUNT: ' + rs[0].rows[0].recordCount);
+    })
+    .catch(function(error) {
+      showMessage('SELECT value error: ' + error.message);
+    });
 }
 
 function addRecord() {
-  window.jsonSQLiteEngine.jsonExecuteStatement([
-    databaseHandle,
-    JSON.stringify(
-      [null, 'INSERT INTO SampleTable VALUES (?,?)', 2, 'User '+nextUser, nextUser, null])
-  ], function(res) {
-    showMessage('INSERT OK');
-    ++nextUser;
-  }, function(error) {
-    showMessage('INSERT error: ' + error.message);
-  });
+  databaseConnection.executeStatement(
+    'INSERT INTO SampleTable VALUES (?,?)', ['User '+nextUser, nextUser])
+    .then(function() {
+      showMessage('INSERT OK');
+      ++nextUser;
+    })
+    .catch(function(error) {
+      showMessage('INSERT error: ' + error.message);
+    });
 }
 
 function deleteRecords() {
-  window.jsonSQLiteEngine.jsonExecuteStatement([
-    databaseHandle,
-    JSON.stringify(
-      [null, 'DELETE FROM SampleTable', 0, null])
-  ], function(res) {
-    showMessage('DELETE OK');
-  }, function(error) {
-    showMessage('DELETE error: ' + error.message);
-  });
+  databaseConnection.executeStatement('DELETE FROM SampleTable')
+    .then(function() {
+      showMessage('DELETE OK');
+    })
+    .catch(function(error) {
+      showMessage('DELETE error: ' + error.message);
+    });
 }
 
 function alertTest() {
